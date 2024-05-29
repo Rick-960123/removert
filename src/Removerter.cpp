@@ -146,6 +146,8 @@ void Removerter::readValidScans( void )
             readBin(_scan_path, points); // For KITTI (.bin)
         } else {
             pcl::io::loadPCDFile<PointType> (_scan_path, *points); // saved from SC-LIO-SAM's pcd binary (.pcd)
+            Eigen::Matrix4d ii_pose = scan_inverse_poses_.at(cout_counter);
+            pcl::transformPointCloud(*points, *points, ii_pose);
         }
 
         // pcdown
